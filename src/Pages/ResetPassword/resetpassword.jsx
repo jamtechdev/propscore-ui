@@ -3,10 +3,34 @@ import axios from "axios";
 import { useLocation, useNavigate } from "react-router";
 import "./resetpassword.css";
 import Header_V1 from "../../Component/header/header-v1/header.jsx";
+import api from "../../api.js";
 
 export default function ResetPassword() {
   const location = useLocation();
   const navigate = useNavigate();
+
+  const checkPasswordStrength = (password) => {
+    const rules = {
+      minLength: password.length >= 8,
+      uppercase: /[A-Z]/.test(password),
+      number: /\d/.test(password),
+      specialChar: /[!@#$%^&*(),.?":{}|<>]/.test(password),
+    };
+
+    const passedCount = Object.values(rules).filter(Boolean).length;
+
+    return { rules, passedCount };
+  };  
+
+  const [passwordStrength, setPasswordStrength] = useState({
+    rules: {
+      minLength: false,
+      uppercase: false,
+      number: false,
+      specialChar: false,
+    },
+    passedCount: 0,
+  });  
 
   // Get email and otp from navigation state (if any)
   const { email, otp } = location.state || {};
@@ -18,6 +42,8 @@ export default function ResetPassword() {
 
   const [error, setError] = useState("");
   const [successMessage, setSuccessMessage] = useState(null);
+  const [showPassword,setShowPassword] = useState(false);
+  const [showPasswordConfirm,setShowPasswordConfirm] = useState(false);
 
   useEffect(() => {
     if ((email || otp) && (!email || !otp)) {
@@ -26,10 +52,13 @@ export default function ResetPassword() {
   }, [email, otp, navigate]);
 
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+
+    if (name === "password") {
+      const strength = checkPasswordStrength(value);
+      setPasswordStrength(strength);
+    }
   };
 
   const goBack = () => {
@@ -43,8 +72,8 @@ export default function ResetPassword() {
 
     try {
       if (email && otp) {
-        const response = await axios.post(
-          "http://localhost:8000/api/forgot-password-reset",
+        const response = await api.post(
+          "/forgot-password-reset",
           {
             email,
             otp,
@@ -61,8 +90,8 @@ export default function ResetPassword() {
         }, 5000);
       } else {
         const token = localStorage.getItem("token");
-        const response = await axios.post(
-          "http://localhost:8000/api/resetPassword",
+        const response = await api.post(
+          "/resetPassword",
           formData,
           {
             headers: {
@@ -133,17 +162,75 @@ export default function ResetPassword() {
                 <div className="form-control d-flex align-items-center gap-2">
                   <img src="/imgs/lock.svg" alt="lock" />
                   <input
-                    type="password"
+                    type={showPassword ? "text" : "password"}
                     name="password"
                     value={formData.password}
                     onChange={handleChange}
                     placeholder="Enter password"
                     required
                   />
-                  <img src="/imgs/eye.svg" alt="toggle visibility" />
+                  <img
+                    src={showPassword ? "/imgs/eye.svg" : "/imgs/eye-slash.svg"}
+                    alt="toggle visibility"
+                    style={{ cursor: "pointer" }}
+                    onClick={() => setShowPassword(!showPassword)}
+                  />
                 </div>
               </div>
-
+              <div className="password-status">
+                <p className="d-flex align-items-center justify-content-between must-includes">
+                  <span className="includes">Password must include:</span>
+                  <span className="status-count">
+                    {passwordStrength.passedCount}/4
+                  </span>
+                </p>
+                <ul className="status-list">
+                  <li className="d-flex align-items-center gap-2">
+                    <img
+                      src={
+                        passwordStrength.rules.minLength
+                          ? "/imgs/checkmark-color.png"
+                          : "/imgs/checkmark.svg"
+                      }
+                      alt=""
+                    />
+                    <p>At least 8 characters</p>
+                  </li>
+                  <li className="d-flex align-items-center gap-2">
+                    <img
+                      src={
+                        passwordStrength.rules.uppercase
+                          ? "/imgs/checkmark-color.png"
+                          : "/imgs/checkmark.svg"
+                      }
+                      alt=""
+                    />
+                    <p>At least 1 uppercase letter</p>
+                  </li>
+                  <li className="d-flex align-items-center gap-2">
+                    <img
+                      src={
+                        passwordStrength.rules.number
+                          ? "/imgs/checkmark-color.png"
+                          : "/imgs/checkmark.svg"
+                      }
+                      alt=""
+                    />
+                    <p>At least 1 number</p>
+                  </li>
+                  <li className="d-flex align-items-center gap-2">
+                    <img
+                      src={
+                        passwordStrength.rules.specialChar
+                          ? "/imgs/checkmark-color.png"
+                          : "/imgs/checkmark.svg"
+                      }
+                      alt=""
+                    />
+                    <p>At least 1 special character</p>
+                  </li>
+                </ul>
+              </div>
               <div className="form-group mb-4">
                 <label className="form-label d-flex align-items-center justify-content-between">
                   Re-enter New Password
@@ -151,14 +238,23 @@ export default function ResetPassword() {
                 <div className="form-control d-flex align-items-center gap-2">
                   <img src="/imgs/lock.svg" alt="lock" />
                   <input
-                    type="password"
+                    type={showPasswordConfirm ? "text" : "password"}
                     name="password_confirmation"
                     value={formData.password_confirmation}
                     onChange={handleChange}
                     placeholder="Enter password"
                     required
                   />
-                  <img src="/imgs/eye.svg" alt="toggle visibility" />
+                  <img
+                    src={
+                      showPasswordConfirm
+                        ? "/imgs/eye.svg"
+                        : "/imgs/eye-slash.svg"
+                    }
+                    alt="toggle visibility"
+                    style={{ cursor: "pointer" }}
+                    onClick={() => setShowPasswordConfirm(!showPassword)}
+                  />
                 </div>
               </div>
 

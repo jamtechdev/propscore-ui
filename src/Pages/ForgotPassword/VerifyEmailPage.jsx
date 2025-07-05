@@ -1,59 +1,83 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
-import { useLocation, useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router"; 
 import VerifyEmail from "../../Component/VerifyEmail/verify.jsx";
+import api from "../../api.js";
+import Header_V1 from "../../Component/header/header-v1/header.jsx";
 
 export default function VerifyEmailPage() {
   const location = useLocation();
   const navigate = useNavigate();
-  const email = location.state?.email;
+
+  const { email, userId, mode } = location.state || {};
 
   const [otp, setOtp] = useState("");
   const [otpError, setOtpError] = useState(null);
   const [otpSuccess, setOtpSuccess] = useState(null);
+  const [resendTimer, setResendTimer] = useState(59);
 
-  if (!email) {
-    // if no email passed, redirect back to forgot password
-    navigate("/auth/forgot-password");
-    return null;
-  }
+  const goBack = () => {
+    navigate(-1);
+  };
+  // Redirect if data is missing
+  useEffect(() => {
+    if (!email || !mode || (mode !== "reset" && !userId)) {
+      navigate("/auth/login");
+    }
+  }, [email, mode, userId, navigate]);
 
   const onOtpChange = (e) => setOtp(e.target.value);
 
+  const verifyEndpoints = {
+    login: "/verify-otp",
+    register: "/verify-otp",
+    reset: "/verify-otp-reset",
+  };
+
+  const resendEndpoints = {
+    login: "/resend-otp",
+    register: "/resend-otp",
+    reset: "/resend-otp-reset",
+  };
+
   const onVerify = async () => {
+    setOtpError(null);
+    setOtpSuccess(null);
+
+    if (otp.length !== 6) {
+      setOtpError("OTP must be 6 digits.");
+      return;
+    }
+
     try {
-      await axios.post("http://localhost:8000/api/verify-otp-reset", {
-        email,
-        otp,
-      });
-      setOtpSuccess("OTP verified!");
-      setOtpError(null);
-      navigate("/auth/reset-password", { state: { email, otp } });
-    } catch {
-      setOtpError("Invalid OTP.");
-      setOtpSuccess(null);
+      const payload =
+        mode === "reset" ? { email, otp } : { user_id: userId, otp };
+
+      await api.post(verifyEndpoints[mode], payload);
+
+      setOtpSuccess("OTP verified successfully!");
+
+      // Redirect user after verification based on mode
+      if (mode === "reset") {
+        navigate("/auth/reset-password", { state: { email, otp } });
+      } else {
+        setTimeout = () => {
+          navigate("/");
+        };
+      }
+    } catch (error) {
+      setOtpError(
+        error.response?.data?.error ||
+          "Invalid or expired OTP. Please try again."
+      );
     }
   };
 
-  const [resendTimer, setResendTimer] = useState(59);
-  
-      useEffect(() => {
-        let interval = null;
-        if (resendTimer > 0) {
-          interval = setInterval(() => {
-            setResendTimer((time) => time - 1);
-          }, 1000);
-        } else if (interval) {
-          clearInterval(interval);
-        }
-        return () => clearInterval(interval);
-      }, [resendTimer]);
-
   const resendOtp = async () => {
     try {
-      await axios.post("http://localhost:8000/api/resend-otp", {
-        user_id: userId,
-      });
+      const payload = mode === "reset" ? { email } : { user_id: userId };
+
+      await api.post(resendEndpoints[mode], payload);
+
       setOtpSuccess("OTP resent successfully!");
       setOtpError(null);
       setResendTimer(59);
@@ -63,16 +87,29 @@ export default function VerifyEmailPage() {
     }
   };
 
+  useEffect(() => {
+    let interval = null;
+    if (resendTimer > 0) {
+      interval = setInterval(() => {
+        setResendTimer((t) => t - 1);
+      }, 1000);
+    }
+    return () => clearInterval(interval);
+  }, [resendTimer]);
+
   return (
-    <VerifyEmail
-      userEmail={email}
-      otp={otp}
-      onOtpChange={onOtpChange}
-      onVerify={onVerify}
-      otpError={otpError}
-      otpSuccess={otpSuccess}
-      resendOtp={resendOtp}
-      resendTimer={resendTimer}
-    />
+    <>
+      <Header_V1 goBack={goBack} canGoBack={true} />
+      <VerifyEmail
+        userEmail={email}
+        otp={otp}
+        onOtpChange={onOtpChange}
+        onVerify={onVerify}
+        otpError={otpError}
+        otpSuccess={otpSuccess}
+        resendOtp={resendOtp}
+        resendTimer={resendTimer}
+      />
+    </>
   );
 }
