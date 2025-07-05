@@ -1,0 +1,35 @@
+import { useState } from "react";
+import "./App.css";
+import { Route, Routes, Outlet } from "react-router";
+import Register from "./Pages/Register/index.jsx";
+import Login from "./Pages/Login/login.jsx";
+import ResetPassword from "./Pages/ResetPassword/resetpassword.jsx";
+import ForgotPassword from "./Pages/ForgotPassword/forgotpassword.jsx";
+import VerifyEmailPage from "./Pages/ForgotPassword/VerifyEmailPage.jsx";
+import Layout from "./Layout/layout.jsx";
+import Home from "./Pages/Home/index.jsx";
+import About from "./Pages/About/about.jsx";
+
+
+function App() {
+  return (
+    <Routes>
+      {/* Auth Routes */}
+      <Route path="/auth" element={<Outlet />}>
+        <Route path="login" element={<Login />} />
+        <Route path="register" element={<Register />} />
+        <Route path="verify-email" element={<VerifyEmailPage />} />
+        <Route path="reset-password" element={<ResetPassword />} />
+        <Route path="forgot-password" element={<ForgotPassword />} />
+      </Route>
+
+      {/* Main App Layout */}
+      <Route path="/" element={<Layout />}>
+        <Route index element={<Home />} />
+        <Route path="about" element={<About />} />
+      </Route>
+    </Routes>
+  );
+}
+
+export default App;

@@ -1,0 +1,56 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap');
+
+:root {
+    --icon-color: #767779;
+    --body-bg: #F2F2F2;
+    --black: #000909;
+    --border-color: #D9D9D999;
+    --card-bg-white: #FDFDFD;
+    --placeholder-color: #97999D;
+    --para: #5C5C5C;
+    --gradient-bar: linear-gradient(to left, #1AA788, #006F6F);
+    --bar: #AFB0B0;
+    --light: #E8E8E8;
+}
+
+* {
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+    text-decoration: none;
+    list-style: none;
+}
+
+a,
+button {
+    cursor: pointer;
+}
+
+body {
+    background-color: var(--card-bg-white);
+    font-family: "Manrope", sans-serif;
+    overflow-x: hidden;
+}
+
+.primary-gradient-heading {
+    background: linear-gradient(to left, #1AA788, #006F6F);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+}
+
+.px-24 {
+    padding: 0px 24px;
+}
+
+.footer {
+    /* background:url('/assets/imgs/footer.png'); */
+    padding: 80px 0px;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
+
+.footer-logo-section {
+    padding-bottom: 26px;
+}

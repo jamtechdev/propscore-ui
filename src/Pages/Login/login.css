@@ -1,0 +1,194 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap');
+
+:root {
+    --icon-color: #767779;
+    --body-bg: #F2F2F2;
+    --black: #000909;
+    --border-color: #D9D9D999;
+    --card-bg-white: #FDFDFD;
+    --placeholder-color: #97999D;
+    --para: #5C5C5C;
+    --gradient-bar: linear-gradient(to left, #1AA788, #006F6F);
+    --bar: #AFB0B0;
+}
+
+* {
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+    text-decoration: none;
+    list-style: none;
+}
+
+body {
+    background-color: var(--body-bg) !important;
+}
+
+.primary-gradient-heading {
+    background: linear-gradient(to left, #1AA788, #006F6F);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+}
+
+.px-24 {
+    padding: 0px 24px;
+}
+
+/*Login Section CSS Start */
+.login-section {
+    min-height: calc(100vh - 71px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-section .login-box {
+    width: 100%;
+    max-width: 500px;
+    border: 1px solid var(--border-color);
+    padding: 32px 8px 8px 8px;
+    background-color: var(--card-bg-white);
+    border-radius: 32px;
+}
+
+.login-title {
+    color: var(--black);
+    font-size: 44px;
+    margin-bottom: 22px;
+    font-family: "Manrope", sans-serif;
+    font-weight: 600;
+    letter-spacing: -1px;
+    text-align: center;
+
+}
+
+.login-form .form-label {
+    font-size: 14px;
+    font-family: "Manrope", sans-serif;
+    font-weight: 500;
+    color: var(--black);
+}
+
+.login-form .form-control,
+.login-form .form-select {
+    padding: 16px 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+}
+
+.login-form .form-control img {
+    width: 20px;
+}
+
+.login-form .form-control input,
+.login-form .form-control input:focus,
+.login-form .form-control input:active {
+    outline: none;
+    border: none;
+    box-shadow: none;
+    font-size: 14px;
+    font-family: "Manrope", sans-serif;
+    font-weight: 400;
+    color: var(--black);
+    width: calc(100% - 20px);
+}
+
+.login-form .form-control input::placeholder {
+    color: var(--placeholder-color);
+}
+
+.login-btn {
+    width: 100%;
+    border-radius: 900px;
+    padding: 12px 20px;
+    color: var(--card-bg-white) !important;
+    border: none !important;
+    outline: none;
+    font-family: "Manrope", sans-serif;
+    font-weight: 600;
+    background: linear-gradient(95.48deg, #09A3A3 -16.47%, #A4C639 189.31%),
+        linear-gradient(99.22deg, rgba(255, 255, 255, 0) 11.06%, rgba(255, 255, 255, 0.0528) 19.85%, rgba(255, 255, 255, 0) 32.04%),
+        linear-gradient(312.32deg, #008080 2.1%, rgba(0, 128, 128, 0) 65.63%),
+        linear-gradient(90deg, rgba(164, 198, 57, 0) 0%, rgba(201, 237, 87, 0.2) 68.19%, rgba(164, 198, 57, 0) 100%);
+
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
+
+.login-btn:hover,
+.login-btn:focus,
+.login-btn:active,
+.login-btn:focus-visible {
+    color: var(--card-bg-white) !important;
+    border: none !important;
+    outline: none;
+}
+
+.or {
+    color: var(--black);
+    font-size: 16px;
+    font-family: "Manrope", sans-serif;
+    font-weight: 500;
+    position: relative;
+    opacity: 0.5;
+}
+
+.or::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 0px;
+    width: 33%;
+    height: 1.5px;
+    background-image: linear-gradient(270deg, #000000 0%, rgba(0, 0, 0, 0) 100%);
+    opacity: 25%;
+}
+
+.or::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 0px;
+    width: 33%;
+    height: 1.5px;
+    background-image: linear-gradient(-270deg, #000000 0%, rgba(0, 0, 0, 0) 100%);
+    opacity: 25%;
+}
+
+.btn-group .btn.btn-facebook {
+    padding: 14px 32px;
+    border: 1px solid var(--icon-color);
+    border-radius: 100px 100px !important;
+    width: 100%;
+
+}
+
+.btn-group .btn.btn-facebook span {
+    color: var(--black);
+    font-size: 16px;
+    font-family: "Manrope", sans-serif;
+    font-weight: 500;
+}
+
+.an-acccount {
+    background: #F2F2F280;
+    padding: 24px;
+    text-align: center;
+    border-radius: 8px 8px 28px 28px;
+}
+
+.an-acccount span {
+    color: var(--para);
+    font-size: 16px;
+    font-family: "Manrope", sans-serif;
+    font-weight: 500;
+}
+
+.an-acccount a {
+    text-decoration: underline;
+    font-size: 16px;
+    font-family: "Manrope", sans-serif;
+    font-weight: 500;
+}

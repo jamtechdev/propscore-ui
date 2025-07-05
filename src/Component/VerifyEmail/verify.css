@@ -1,0 +1,77 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap');
+
+:root {
+    --icon-color: #767779;
+    --body-bg: #F2F2F2;
+    --black: #000909;
+    --border-color: #D9D9D999;
+    --card-bg-white: #FDFDFD;
+    --placeholder-color: #97999D;
+    --para: #5C5C5C;
+    --gradient-bar: linear-gradient(to left, #1AA788, #006F6F);
+    --bar: #AFB0B0;
+}
+
+* {
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+    text-decoration: none;
+    list-style: none;
+}
+
+body {
+    background-color: var(--body-bg);
+}
+
+.primary-gradient-heading {
+    background: linear-gradient(to left, #1AA788, #006F6F);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+}
+
+.px-24 {
+    padding: 0px 24px;
+}
+/* Varification Email CSS Start */
+.verify-email .form-group .unfocused {
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+}
+
+.verify-email .form-group .form-control {
+    position: relative;
+    z-index: 1;
+    background: #fff;
+    border-radius: 12px;
+    border: 1px solid transparent;
+    transition: all 0.3s ease;
+    text-align: center;
+    font-size: 16px;
+    font-family: "Manrope", sans-serif;
+    font-weight: 400;
+}
+
+.verify-email .form-group .form-control:focus {
+    border: 1px solid transparent;
+    background-origin: border-box;
+    background-clip: padding-box, border-box;
+    background-image:
+        linear-gradient(#fff, #fff),
+        linear-gradient(271.94deg, #1AA788 0.26%, #006F6F 100.39%);
+    border-radius: 12px;
+    box-shadow: none !important;
+}
+
+.verify-email .resend-time {
+    color: var(--placeholder-color);
+    text-decoration: none;
+    font-size: 16px;
+    font-family: "Manrope", sans-serif;
+    font-weight: 600;
+
+}
+
+/* Varification Email CSS End */
