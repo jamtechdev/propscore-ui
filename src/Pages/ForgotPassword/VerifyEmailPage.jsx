@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useLocation, useNavigate } from "react-router"; 
+import { useLocation, useNavigate } from "react-router";
 import VerifyEmail from "../../Component/VerifyEmail/verify.jsx";
 import api from "../../api.js";
 import Header_V1 from "../../Component/header/header-v1/header.jsx";
@@ -14,10 +14,12 @@ export default function VerifyEmailPage() {
   const [otpError, setOtpError] = useState(null);
   const [otpSuccess, setOtpSuccess] = useState(null);
   const [resendTimer, setResendTimer] = useState(59);
+  const [loading, setLoading] = useState(false); // Initialize as false
 
   const goBack = () => {
     navigate(-1);
   };
+
   // Redirect if data is missing
   useEffect(() => {
     if (!email || !mode || (mode !== "reset" && !userId)) {
@@ -42,7 +44,7 @@ export default function VerifyEmailPage() {
   const onVerify = async () => {
     setOtpError(null);
     setOtpSuccess(null);
-
+    console.log("verify otp");
     if (otp.length !== 6) {
       setOtpError("OTP must be 6 digits.");
       return;
@@ -60,9 +62,9 @@ export default function VerifyEmailPage() {
       if (mode === "reset") {
         navigate("/auth/reset-password", { state: { email, otp } });
       } else {
-        setTimeout = () => {
+        setTimeout(() => {
           navigate("/");
-        };
+        }, 2000);
       }
     } catch (error) {
       setOtpError(
@@ -73,6 +75,8 @@ export default function VerifyEmailPage() {
   };
 
   const resendOtp = async () => {
+    console.log("resendOtp called");
+    setLoading(true); // Set loading to true while API call is in progress
     try {
       const payload = mode === "reset" ? { email } : { user_id: userId };
 
@@ -80,11 +84,13 @@ export default function VerifyEmailPage() {
 
       setOtpSuccess("OTP resent successfully!");
       setOtpError(null);
+      setOtp("");
       setResendTimer(59);
     } catch {
       setOtpError("Failed to resend OTP.");
       setOtpSuccess(null);
     }
+    setLoading(false); // Reset loading after API call finishes
   };
 
   useEffect(() => {
@@ -108,6 +114,7 @@ export default function VerifyEmailPage() {
         otpError={otpError}
         otpSuccess={otpSuccess}
         resendOtp={resendOtp}
+        loading={loading}
         resendTimer={resendTimer}
       />
     </>

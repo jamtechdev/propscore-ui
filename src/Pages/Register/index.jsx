@@ -100,6 +100,16 @@ export default function Register() {
 
   const goBack = () => setStep((prev) => (prev > 1 ? prev - 1 : prev));
 
+  const handleClickAuth = async () => {
+    console.log("googogogo");
+    try{
+      await api.get("/auth/google");
+    } catch (err) {
+      if (err.response?.data?.errors) setErrors(err.response.data.errors);
+      else alert("An error occurred.");
+    }
+  };
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -186,7 +196,7 @@ export default function Register() {
                 </p>
                 <div className="px-24 login-form">
                   <form className="row g-3">
-                    {/* Step 2 Content (identical to your original) */}
+                    {/* Step 2 */}
                     <div className="form-group col-6 ps-0">
                       <label className="form-label">First Name</label>
                       <input
@@ -461,20 +471,36 @@ export default function Register() {
                   </div>
 
                   <div className="d-flex px-24 btn-group align-items-center justify-content-between gap-3 mb-4">
-                    <a
+                    {/* <a
                       href="#"
                       className="btn btn-facebook d-flex align-items-center justify-content-center gap-2"
                     >
                       <img src="/imgs/logos_facebook.svg" alt="" />
                       <span>Facebook</span>
-                    </a>
-                    <a
+                    </a> */}
+                    <button
+                      type="submit"
+                      className="btn btn-facebook d-flex align-items-center justify-content-center gap-2"
+                      onClick={handleClickAuth}
+                    >
+                      <img src="/imgs/logos_facebook.svg" alt="" />
+                      <span>Facebook</span>
+                    </button>
+                    {/* <a
                       href="#"
                       className="btn btn-facebook d-flex align-items-center justify-content-center gap-2"
                     >
                       <img src="/imgs/devicon_google.svg" alt="" />
                       <span>Google</span>
-                    </a>
+                    </a> */}
+                    <button
+                      type="submit"
+                      className="btn btn-facebook d-flex align-items-center justify-content-center gap-2"
+                      onClick={handleClickAuth}
+                    >
+                      <img src="/imgs/devicon_google.svg" alt="" />
+                      <span>Google</span>
+                    </button>
                   </div>
                 </form>
               </div>
