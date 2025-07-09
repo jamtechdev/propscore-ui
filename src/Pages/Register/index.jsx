@@ -7,6 +7,21 @@ import "./index.css";
 export default function Register() {
   const navigate = useNavigate();
 
+  useEffect(() => {
+    const handleMessage = (event) => {
+      const { success, token } = event.data;
+      if (success) {
+        localStorage.setItem("token", token);
+        // Navigate to homepage
+        navigate("/");
+      }
+    };
+    window.addEventListener("message", handleMessage);
+    return () => {
+      window.removeEventListener("message", handleMessage);
+    };
+  }, [navigate]);
+
   const checkPasswordStrength = (password) => {
     const rules = {
       minLength: password.length >= 8,
@@ -98,17 +113,75 @@ export default function Register() {
     setStep((prev) => prev + 1);
   };
 
-  const goBack = () => setStep((prev) => (prev > 1 ? prev - 1 : prev));
-
-  const handleClickAuth = async () => {
-    console.log("googogogo");
-    try{
-      await api.get("/auth/google");
-    } catch (err) {
-      if (err.response?.data?.errors) setErrors(err.response.data.errors);
-      else alert("An error occurred.");
+  const goBack = () => {
+    if (step > 1) {
+      setStep((prev) => prev - 1);
+    } else {
+      navigate(-1); 
     }
   };
+
+  const handleClickAuth = async () => {
+    try {
+      // Pick relevant fields from formData (step 1 & 2)
+      const {
+        role,
+        first_name,
+        last_name,
+        goal_id,
+        preferred_property_type_id,
+        address,
+        mls_regions,
+        first_property_address,
+        agency_name,
+        license_number,
+      } = formData;
+
+      // Build query parameters dynamically
+      const params = new URLSearchParams();
+
+      if (role) params.append("role", role);
+      if (first_name) params.append("first_name", first_name);
+      if (last_name) params.append("last_name", last_name);
+      if (goal_id) params.append("goal_id", goal_id);
+      if (preferred_property_type_id)
+        params.append("preferred_property_type_id", preferred_property_type_id);
+      if (address) params.append("address", address);
+      if (mls_regions) params.append("mls_regions", mls_regions);
+      if (first_property_address)
+        params.append("first_property_address", first_property_address);
+      if (agency_name) params.append("agency_name", agency_name);
+      if (license_number) params.append("license_number", license_number);
+
+      // Construct final URL
+      const url = `/auth/google?${params.toString()}`;
+      // Make the API call
+      const res = await api.get(url);
+
+      // Open popup as before
+      const popupUrl = res.data.url;
+      const width = 500;
+      const height = 600;
+      const left = (window.innerWidth - width) / 2;
+      const top = (window.innerHeight - height) / 2;
+
+      const popup = window.open(
+        popupUrl,
+        "GoogleAuth",
+        `width=${width},height=${height},top=${top},left=${left}`
+      );
+
+      if (!popup) {
+        alert("Popup blocked! Please allow popups for this website.");
+      }
+    } catch (err) {
+      if (err.response?.data?.errors) {
+        setErrors(err.response.data.errors);
+      } else {
+        alert("An error occurred.");
+      }
+    }
+  };  
   
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -471,13 +544,6 @@ export default function Register() {
                   </div>
 
                   <div className="d-flex px-24 btn-group align-items-center justify-content-between gap-3 mb-4">
-                    {/* <a
-                      href="#"
-                      className="btn btn-facebook d-flex align-items-center justify-content-center gap-2"
-                    >
-                      <img src="/imgs/logos_facebook.svg" alt="" />
-                      <span>Facebook</span>
-                    </a> */}
                     <button
                       type="submit"
                       className="btn btn-facebook d-flex align-items-center justify-content-center gap-2"
@@ -486,13 +552,6 @@ export default function Register() {
                       <img src="/imgs/logos_facebook.svg" alt="" />
                       <span>Facebook</span>
                     </button>
-                    {/* <a
-                      href="#"
-                      className="btn btn-facebook d-flex align-items-center justify-content-center gap-2"
-                    >
-                      <img src="/imgs/devicon_google.svg" alt="" />
-                      <span>Google</span>
-                    </a> */}
                     <button
                       type="submit"
                       className="btn btn-facebook d-flex align-items-center justify-content-center gap-2"

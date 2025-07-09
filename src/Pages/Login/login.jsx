@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router"; 
 import "./login.css";
 import Header_V1 from "../../Component/header/header-v1/header.jsx";
@@ -14,11 +14,30 @@ export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
+  useEffect(() => {
+      const handleMessage = (event) => {
+        const { success, token } = event.data;
+        if (success) {
+          localStorage.setItem("token", token);
+          // Navigate to homepage
+          navigate("/");
+        }
+      };
+      window.addEventListener("message", handleMessage);
+      return () => {
+        window.removeEventListener("message", handleMessage);
+      };
+    }, [navigate]);
+
   const handleChange = (e) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
     });
+  };
+
+  const goBack = () => {
+    navigate(-1);
   };
 
   const handleSubmit = async (e) => {
@@ -57,9 +76,39 @@ export default function Login() {
     }
   };
 
+  const handleClickAuth = async () => {
+    try {
+      // Make the API call
+      const res = await api.get('/auth/google');
+
+      // Open popup as before
+      const popupUrl = res.data.url;
+      const width = 500;
+      const height = 600;
+      const left = (window.innerWidth - width) / 2;
+      const top = (window.innerHeight - height) / 2;
+
+      const popup = window.open(
+        popupUrl,
+        "GoogleAuth",
+        `width=${width},height=${height},top=${top},left=${left}`
+      );
+
+      if (!popup) {
+        alert("Popup blocked! Please allow popups for this website.");
+      }
+    } catch (err) {
+      if (err.response?.data?.errors) {
+        setErrors(err.response.data.errors);
+      } else {
+        alert("An error occurred.");
+      }
+    }
+  };  
+
   return (
     <>
-      <Header_V1 canGoBack={true} />
+      <Header_V1 goBack={goBack} canGoBack={true} />
       <main>
         <section className="login-section">
           <div className="login-box">
@@ -86,7 +135,10 @@ export default function Login() {
               <div className="form-group mb-4">
                 <label className="form-label d-flex align-items-center justify-content-between">
                   Password{" "}
-                  <Link className="primary-gradient-heading" to="/auth/forgot-password">
+                  <Link
+                    className="primary-gradient-heading"
+                    to="/auth/forgot-password"
+                  >
                     Forgot Your Password?
                   </Link>
                 </label>
@@ -127,14 +179,22 @@ export default function Login() {
             </div>
 
             <div className="d-flex px-24 btn-group align-items-center justify-content-between gap-3 mb-4">
-              <a href="#" className="btn btn-facebook d-flex align-items-center justify-content-center gap-2">
+              <button
+                type="submit"
+                className="btn btn-facebook d-flex align-items-center justify-content-center gap-2"
+                onClick={handleClickAuth}
+              >
                 <img src="/imgs/logos_facebook.svg" alt="" />
                 <span>Facebook</span>
-              </a>
-              <a href="#" className="btn btn-facebook d-flex align-items-center justify-content-center gap-2">
+              </button>
+              <button
+                type="submit"
+                className="btn btn-facebook d-flex align-items-center justify-content-center gap-2"
+                onClick={handleClickAuth}
+              >
                 <img src="/imgs/devicon_google.svg" alt="" />
                 <span>Google</span>
-              </a>
+              </button>
             </div>
 
             <div className="an-acccount">
