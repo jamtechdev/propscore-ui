@@ -7,9 +7,9 @@ export default function HeroSection () {
     return(
       <>
           <section className="hero-section">
-            <div className="container px-0">
+            <div>
               <div className="row">
-                <div className="col-xl-6">
+                <div className="col-xl-5">
                   <div className="d-flex align-items-center gap-3 hero-sec-btn-group">
                     <button className="white-btn">
                       <svg
@@ -56,7 +56,7 @@ export default function HeroSection () {
                   </div>
                   <div className="hero-sec-content">
                     <h1>
-                      PropScore is the Standard for <span>Scoring Homes</span>
+                      PropScore is <br/> the Standard for<br/> <span>Scoring Homes</span>
                     </h1>
                     <p className="para">
                       Backed by data from 190M+ U.S. homes, PropScore instantly
@@ -64,7 +64,7 @@ export default function HeroSection () {
                       potential - trusted by buyers, agents, and lenders.
                     </p>
                   </div>
-                  <div className="d-flex flex-column gap-2 ">
+                  <div className="d-flex flex-column email--box">
                     <div className="d-flex align-items-center form-control search-container">
                       <svg
                         width={10}
@@ -109,7 +109,7 @@ export default function HeroSection () {
                     </div>
                   </div>
                 </div>
-                <div className="col-xl-6 px-0">
+                <div className="col-xl-7 px-0">
                   <div className="positon-relative pt-100 w-100 banner-hero">
                     <img src="/imgs/hero-banner.png" alt="" />
                   </div>
@@ -118,7 +118,7 @@ export default function HeroSection () {
             </div>
           </section>
           <section className="plateform-section">
-            <div className="container px-0">
+            <div>
               <h6 className="plateform-title">
                 The choice of top brokerages and platforms
               </h6>
@@ -139,7 +139,7 @@ export default function HeroSection () {
             </div>
           </section>
           <section className="why-propscore-section">
-            <div className="container px-0">
+            <div >
               <div className="content mb-5">
                 <h2 className="secondary-title">
                   Why <span>PropScore</span>

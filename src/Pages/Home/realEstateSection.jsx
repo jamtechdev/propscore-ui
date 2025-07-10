@@ -5,7 +5,7 @@ export default function RealEstate () {
     return (
       <>
           <section className="realestate-section agent-section">
-            <div className="container p-0">
+            <div>
               <div className="agent-section-txt-content">
                 <h2 className="secondary-title ">
                   <span>Trusted</span>

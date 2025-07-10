@@ -4,7 +4,7 @@ import "./homepage.css";
 export default function AgentSection() {
   return (
       <section className="agent-section">
-        <div className="container px-0">
+        <div>
           <div className="agent-section-txt-content">
             <h2 className="secondary-title ">
               <span>Designed for</span>

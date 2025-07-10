@@ -7,9 +7,17 @@ import "./header.css";
 export default function Header_V2 () {
     return (
       <>
+      <div className="grid-line-wrapper">
+        <div className="grid-line"></div>
+        <div className="grid-line"></div>
+        <div className="grid-line"></div>
+        <div className="grid-line"></div>
+        <div className="grid-line"></div>
+        <div className="grid-line"></div>
+      </div>
         <header className="header">
           <nav className="navbar navbar-expand-xl ">
-            <div className="container px-0">
+            <div className="w-100">
               <div className="d-flex align-items-center justify-content-between w-100">
                 <a className="navbar-brand d-xl-none d-block" href="#">
                   <img src="/imgs/logo.png" alt="" />

@@ -10,7 +10,7 @@ import "./homepage.css";
 export default function Testimonial() {
   return (
     <section className="what-our-clients how-it-work--section">
-      <div className="container px-0">
+      <div>
         <div className="d-flex align-items-start what-our-clients-container justify-content-between gap-3 mb-5">
           <div className="content">
             <h2 className="secondary-title">
@@ -34,13 +34,14 @@ export default function Testimonial() {
           }}
           spaceBetween={30}
           slidesPerView={3}
+          centeredSlides={true}
           loop={true}
           className="testimonialSwiper"
         >
           {/* Slide 1 */}
           <SwiperSlide>
             <div className="testimonial-content">
-              <div className="d-flex align-items-center justify-content-between mb-3">
+              <div className="d-flex align-items-center justify-content-between">
                 <div className="stars">
                   {"★"
                     .repeat(5)
@@ -75,7 +76,7 @@ export default function Testimonial() {
           </SwiperSlide>
           <SwiperSlide>
             <div className="testimonial-content">
-              <div className="d-flex align-items-center justify-content-between mb-3">
+              <div className="d-flex align-items-center justify-content-between">
                 <div className="stars">
                   {"★"
                     .repeat(5)
@@ -110,7 +111,7 @@ export default function Testimonial() {
           </SwiperSlide>
           <SwiperSlide>
             <div className="testimonial-content">
-              <div className="d-flex align-items-center justify-content-between mb-3">
+              <div className="d-flex align-items-center justify-content-between">
                 <div className="stars">
                   {"★"
                     .repeat(5)
@@ -145,7 +146,7 @@ export default function Testimonial() {
           </SwiperSlide>
           <SwiperSlide>
             <div className="testimonial-content">
-              <div className="d-flex align-items-center justify-content-between mb-3">
+              <div className="d-flex align-items-center justify-content-between">
                 <div className="stars">
                   {"★"
                     .repeat(5)
@@ -180,7 +181,7 @@ export default function Testimonial() {
           </SwiperSlide>
           <SwiperSlide>
             <div className="testimonial-content">
-              <div className="d-flex align-items-center justify-content-between mb-3">
+              <div className="d-flex align-items-center justify-content-between">
                 <div className="stars">
                   {"★"
                     .repeat(5)
@@ -215,7 +216,7 @@ export default function Testimonial() {
           </SwiperSlide>
           <SwiperSlide>
             <div className="testimonial-content">
-              <div className="d-flex align-items-center justify-content-between mb-3">
+              <div className="d-flex align-items-center justify-content-between">
                 <div className="stars">
                   {"★"
                     .repeat(5)

@@ -19,8 +19,8 @@ export default function HowItWork() {
   return (
     <>
       <section className="how-it-work--section">
-        <div className="container px-0">
-          <div className="d-flex align-items-start justify-content-between gap-3  mb-5">
+        <div>
+          <div className="d-flex align-items-start justify-content-between gap-3 accordion-wrapper">
             <div className="content">
               <h2 className="secondary-title">
                 How it <span>Works</span>
@@ -37,7 +37,7 @@ export default function HowItWork() {
 
           <div className="row g-5">
             {/* Accordion Section */}
-            <div className="col-xl-6 col-12">
+            <div className="col-xl-5 col-12">
               <div className="accordion" id="featureAccordion">
                 {/* Accordion Item 1 */}
                 <div className="accordion-item">
@@ -175,7 +175,7 @@ export default function HowItWork() {
             </div>
 
             {/* Right Image Section */}
-            <div className="col-xl-6 col-12">
+            <div className="col-xl-7 col-12">
               <div className="how-it-img d-xl-block d-none">
                 <img
                   src={images[activeCollapse] || images.default}
