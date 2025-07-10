@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
 import api from "../../api.js";
 import Header_V1 from "../../Component/header/header-v1/header.jsx";
 import "./index.css";
@@ -253,6 +253,15 @@ export default function Register() {
                   >
                     Continue
                   </button>
+                </div>
+                <div className="an-acccount">
+                  <span>Already have an account ?</span>{" "}
+                  <Link
+                    className="primary-gradient-heading"
+                    to="/auth/login"
+                  >
+                    Log In
+                  </Link>
                 </div>
               </div>
             )}
