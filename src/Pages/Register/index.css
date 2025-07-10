@@ -148,7 +148,7 @@ body {
 
 .login-btn {
     width: 100%;
-    border-radius: 900px;
+    border-radius: 900px !important;
     padding: 12px 20px;
     color: var(--card-bg-white);
     border: none !important;

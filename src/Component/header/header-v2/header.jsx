@@ -72,7 +72,7 @@ export default function Header_V2 () {
                         className={({ isActive }) =>
                           isActive ? "active nav-link" : "nav-link"
                         }
-                        to="*"
+                        to=""
                         // add route
                       >
                         Agents &amp; Lenders

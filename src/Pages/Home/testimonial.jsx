@@ -33,9 +33,26 @@ export default function Testimonial() {
             prevEl: ".swiper-button-prev",
           }}
           spaceBetween={30}
-          slidesPerView={3}
+          slidesPerView={1}
           loop={true}
           className="testimonialSwiper"
+          breakpoints={{
+            // when window width is >= 576px (small tablets)
+            576: {
+              slidesPerView: 1,
+              spaceBetween: 20,
+            },
+            // when window width is >= 768px (tablets)
+            768: {
+              slidesPerView: 2,
+              spaceBetween: 25,
+            },
+            // when window width is >= 1024px (desktop)
+            1024: {
+              slidesPerView: 3,
+              spaceBetween: 30,
+            },
+          }}
         >
           {/* Slide 1 */}
           <SwiperSlide>
