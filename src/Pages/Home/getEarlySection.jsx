@@ -9,16 +9,16 @@ export default function EarlyAccessSection() {
         <div className="d-flex align-items-center justify-content-center banner-get">
           <div className="max-w-605">
             <div className="d-flex align-items-center justify-content-center gap-3">
-              <button className="d-flex align-items-center justify-content-center gap-2 glass-btn">
+              <button className="d-flex align-items-center justify-content-center glass-btn">
                 <img src="/imgs/bullzy.svg" alt="AI Icon 1" />
                 <span>
                   AI-Powered <span className="opacity-8">Analysis</span>
                 </span>
               </button>
-              <button className="d-flex align-items-center justify-content-center gap-2 glass-btn">
+              <button className="d-flex align-items-center justify-content-center glass-btn">
                 <img src="/imgs/pie.svg" alt="AI Icon 2" />
                 <span>
-                  AI-Powered <span className="opacity-8">Analysis</span>
+                  Data-Backed <span className="opacity-8">Decisions</span>
                 </span>
               </button>
             </div>
