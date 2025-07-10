@@ -32,7 +32,7 @@ export default function ForgotPassword() {
         },
       });
     } catch (err) {
-      setError("Failed to send OTP. Please try again.");
+      setError(err.response?.data?.errors ||"Failed to send OTP. Please try again.");
     }
   };
 
@@ -53,7 +53,7 @@ export default function ForgotPassword() {
               <span className="primary-gradient-heading">Forgot</span> Password!
             </h1>
             <p className="para text-center">
-              Enter your email address below and we'll send you a 6-digit code
+              Enter your registered email address below and we'll send you a 6-digit code
               to reset your password.
             </p>
             <form onSubmit={handleSubmit} className="px-24 login-form">

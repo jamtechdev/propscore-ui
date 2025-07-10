@@ -75,7 +75,6 @@ export default function VerifyEmailPage() {
   };
 
   const resendOtp = async () => {
-    console.log("resendOtp called");
     setLoading(true); // Set loading to true while API call is in progress
     try {
       const payload = mode === "reset" ? { email } : { user_id: userId };
