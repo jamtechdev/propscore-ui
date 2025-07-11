@@ -76,7 +76,7 @@ export default function VerifyEmail({
               onVerify();
             }}
           >
-            <div className="form-group mb-4 d-flex align-items-center gap-3 justify-content-center">
+            <div className="form-group mb-4 d-flex align-items-center gap-2 justify-content-center">
               {otpDigits.map((digit, index) => (
                 <input
                   key={index}
@@ -106,7 +106,7 @@ export default function VerifyEmail({
             <div className="form-group mb-3">
               <button
                 type="submit"
-                className="btn login-btn"
+                className="login-btn"
                 disabled={loading}
               >
                 Verify Code

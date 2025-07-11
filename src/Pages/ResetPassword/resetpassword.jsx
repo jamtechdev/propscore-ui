@@ -259,7 +259,7 @@ export default function ResetPassword() {
               </div>
 
               <div className="form-group mb-3">
-                <button type="submit" className="btn login-btn">
+                <button type="submit" className="login-btn">
                   Reset Password
                 </button>
               </div>

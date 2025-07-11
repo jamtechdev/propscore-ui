@@ -7,7 +7,7 @@ import { Link } from "react-router";
 const Header_V1 = ({goBack, canGoBack}) => {
   return (
     <header id="login-header" className="py-3">
-      <div className="container">
+      <div className="header-container">
         <div className="d-flex align-items-center justify-content-between">
           <div
             className="left"
