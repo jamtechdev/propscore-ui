@@ -37,7 +37,7 @@ export default function ForgotPassword() {
   };
 
   return (
-    <>
+    <div className="auth-wrapper">
       <Header_V1 goBack={goBack} canGoBack={true} />
       <main>
         <section className="login-section forgot_password">
@@ -79,7 +79,7 @@ export default function ForgotPassword() {
               )}
 
               <div className="form-group mb-3">
-                <button type="submit" className="btn login-btn" onSubmit={handleSubmit}>
+                <button type="submit" className="login-btn" onSubmit={handleSubmit}>
                   Submit
                 </button>
               </div>
@@ -87,6 +87,6 @@ export default function ForgotPassword() {
           </div>
         </section>
       </main>
-    </>
+    </div>
   );
 }

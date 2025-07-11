@@ -21,6 +21,10 @@
   list-style: none;
 }
 
+section {
+  overflow: hidden;
+}
+
 a,
 button {
   cursor: pointer;
@@ -165,11 +169,24 @@ body {
   aspect-ratio: 1/1;
 }
 
+.inner-input {
+  position: relative;
+  width: 100%;
+}
+
+.inner-input > svg {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  left: 0;
+}
+
 .form-control.search-container input {
   width: 100%;
   max-width: 260px;
   border: none;
-  padding-left: 10px;
+  padding-left: 25px;
   outline: none;
 }
 
@@ -233,6 +250,7 @@ body {
 
 .plateform-section {
   background-color: #f7f7f7;
+  border-top: 1px solid #e8e8e8;
 }
 
 .plateform-title {
@@ -267,6 +285,22 @@ body {
   align-items: center;
   padding: 60px;
   justify-content: space-between;
+  gap: 120px 0;
+  border-top: 1px solid #e8e8e8;
+  position: relative;
+}
+
+.brands-platforms:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  height: 1px;
+  width: 100%;
+  left: 0;
+  right: 0;
+  background: #e8e8e8;
+  margin: auto;
 }
 
 .brands-platforms img {
@@ -507,7 +541,8 @@ body {
 .how-it-work--section .accordion-button:not(.collapsed) {
   background-color: #f2f2f2;
   box-shadow: none;
-  padding-bottom: 12px !important ;
+  padding-bottom: 12px !important;
+  color: #000 !important;
 }
 
 .how-it-work--section .accordion-collapse:not(.collapsed) {
@@ -629,7 +664,6 @@ body {
   right: -400px;
 }
 
-
 .agent-section .flow-img-continer img {
   position: relative;
   z-index: 10;
@@ -720,7 +754,7 @@ body {
 
 .what-our-clients.how-it-work--section {
   padding: 112px 0px 80px 0px;
-  background: #F2F2F2;
+  background: #f2f2f2;
 }
 
 .what-our-clients.how-it-work--section .what-our-clients-container {
@@ -749,7 +783,6 @@ body {
   gap: 28px !important;
 }
 
-
 .what-our-clients .stars {
   display: flex;
   gap: 4px;
@@ -764,7 +797,7 @@ body {
 .what-our-clients .testimonial-text {
   font-size: 18px;
   line-height: 1.6;
-  color: #5C5C5C;
+  color: #5c5c5c;
   margin-bottom: 0px;
   font-weight: 400;
   padding: 12px 0 0 0;
@@ -1056,7 +1089,7 @@ body {
 
 .realestate-section.agent-section .password-status {
   padding: 0px;
-  border: 1px solid #D9D9D9;
+  border: 1px solid #d9d9d9;
 }
 
 .realestate-section.agent-section p.must-includes {

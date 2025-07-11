@@ -17,13 +17,13 @@ const Header_V1 = ({goBack, canGoBack}) => {
               opacity: canGoBack ? 1 : 0.5,
             }}
           >
-            <div className="d-flex align-items-center gap-1">
+            <div className="d-flex align-items-center gap-1 back-button">
               <FontAwesomeIcon icon={faArrowLeft} />
               <span>Back</span>
             </div>
           </div>
           <div className="right">
-            <Link to={"/"}>
+            <Link to={"/"} className="text-decoration-none">
               <div className="d-flex align-items-center gap-1">
                 <img src="/imgs/logo-dashboard.png" alt="" />
                 <span className="d-md-block d-none">PropScore</span>

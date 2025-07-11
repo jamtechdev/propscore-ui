@@ -48,7 +48,7 @@ export default function Footer() {
             </div>
 
             {/* Contact Column */}
-            <div className="footer-column col-xl-3 col-md-6 col-8 border-right">
+            <div className="footer-column col-xl-3 col-md-6 col-8 border-right mobile-border-none">
               <h3>Contact us</h3>
               <div className="contact-info">
                 <div className="contact-item">

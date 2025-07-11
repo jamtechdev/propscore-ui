@@ -107,7 +107,7 @@ export default function Login() {
   };  
 
   return (
-    <>
+    <div className="auth-wrapper">
       <Header_V1 goBack={goBack} canGoBack={true} />
       <main>
         <section className="login-section">
@@ -168,7 +168,7 @@ export default function Login() {
               )}
 
               <div className="form-group mb-3">
-                <button type="submit" className="btn login-btn">
+                <button type="submit" className="login-btn">
                   Log In
                 </button>
               </div>
@@ -206,6 +206,6 @@ export default function Login() {
           </div>
         </section>
       </main>
-    </>
+    </div>
   );
 }

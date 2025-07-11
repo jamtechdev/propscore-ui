@@ -204,7 +204,7 @@ export default function Register() {
   };
 
   return (
-    <>
+   <div className="auth-wrapper register-page">
       <Header_V1 goBack={goBack} canGoBack={step > 1} />
       <main>
         <section className="login-section sign-up py-xl-5">
@@ -248,7 +248,7 @@ export default function Register() {
                 </div>
                 <div className="form-group mb-3 px-24">
                   <button
-                    className="btn login-btn"
+                    className="login-btn"
                     onClick={nextStep}
                     disabled={!formData.role}
                   >
@@ -277,7 +277,7 @@ export default function Register() {
                 <div className="px-24 login-form">
                   <form className="row g-3">
                     {/* Step 2 */}
-                    <div className="form-group col-6 ps-0">
+                    <div className="form-group col-md-6 col-12 ps-0">
                       <label className="form-label">First Name</label>
                       <input
                         type="text"
@@ -287,7 +287,7 @@ export default function Register() {
                         onChange={handleChange}
                       />
                     </div>
-                    <div className="form-group col-6 pe-0">
+                    <div className="form-group col-md-6 col-12 pe-0">
                       <label className="form-label">Last Name</label>
                       <input
                         type="text"
@@ -393,7 +393,7 @@ export default function Register() {
                     )}
                     <div className="form-group col-12 px-0 pb-3">
                       <button
-                        className="btn login-btn"
+                        className="login-btn"
                         type="button"
                         onClick={nextStep}
                       >
@@ -488,7 +488,7 @@ export default function Register() {
                           }
                           alt=""
                         />
-                        <p>At least 1 uppercase letter</p>
+                        <p>One uppercase letter</p>
                       </li>
                       <li className="d-flex align-items-center gap-2">
                         <img
@@ -499,7 +499,7 @@ export default function Register() {
                           }
                           alt=""
                         />
-                        <p>At least 1 number</p>
+                        <p>One number</p>
                       </li>
                       <li className="d-flex align-items-center gap-2">
                         <img
@@ -510,7 +510,7 @@ export default function Register() {
                           }
                           alt=""
                         />
-                        <p>At least 1 special character</p>
+                        <p>One special character </p>
                       </li>
                     </ul>
                   </div>
@@ -541,7 +541,7 @@ export default function Register() {
                   {errors && <div className="text-danger mb-3">{errors}</div>}
 
                   <div className="form-group mb-3">
-                    <button type="submit" className="btn login-btn">
+                    <button type="submit" className="login-btn">
                       Create Account
                     </button>
                   </div>
@@ -574,6 +574,6 @@ export default function Register() {
           </div>
         </section>
       </main>
-    </>
+    </div>
   );
 }

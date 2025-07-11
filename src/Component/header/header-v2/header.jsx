@@ -54,6 +54,7 @@ export default function Header_V2 () {
                     </button>
                   </div>
                   <ul className="navbar-nav  mb-2 mb-lg-0 gap-5">
+                    <li className="menu-title d-none">Navigation</li>
                     <li className="nav-item">
                       <NavLink
                         className={({ isActive }) =>

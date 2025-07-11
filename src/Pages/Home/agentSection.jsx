@@ -17,7 +17,8 @@ export default function AgentSection() {
           </div>
 
           <div className="flow-img-continer">
-            <img src="/imgs/flow-banner.png" alt="Flow Banner" />
+            <img className="d-none d-md-block" src="/imgs/flow-banner.png" alt="Flow Banner" />
+            <img className="d-block d-md-none" src="/imgs/flow-banner-mob.png" alt="Flow Banner" />
           </div>
 
           <div className="d-flex agent-card-block gap-3 flex-lg-row flex-column align-items-center justify-content-between">
