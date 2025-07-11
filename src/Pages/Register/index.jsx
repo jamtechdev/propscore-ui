@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router";
 import api from "../../api.js";
 import Header_V1 from "../../Component/header/header-v1/header.jsx";
 import "./index.css";
-import PlacesAutocompleteInput from "../../Component/Autocomplete/PlacesAutoComplete.jsx";
+// import PlacesAutocompleteInput from "../../Component/Autocomplete/PlacesAutoComplete.jsx";
 
 export default function Register() {
   const navigate = useNavigate();
