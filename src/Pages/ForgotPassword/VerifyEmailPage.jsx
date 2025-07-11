@@ -44,7 +44,6 @@ export default function VerifyEmailPage() {
   const onVerify = async () => {
     setOtpError(null);
     setOtpSuccess(null);
-    console.log("verify otp");
     if (otp.length !== 6) {
       setOtpError("OTP must be 6 digits.");
       return;
