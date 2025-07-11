@@ -11,13 +11,14 @@
 }
 
 .btn-group {
-    padding: 0;
+    padding: 0 !important;
 }
 
 .header-container{
   width: 100%;
   max-width: 1320px;
   margin: auto !important;
+  padding: 0 18px;
 }
 
 @media screen and (max-width: 768px) {

@@ -172,9 +172,8 @@ export default function Login() {
                   Log In
                 </button>
               </div>
-            </form>
 
-            <div className="px-24 mb-xl-3">
+               <div className="px-24 mb-xl-3">
               <p className="or text-center">or continue with</p>
             </div>
 
@@ -196,6 +195,7 @@ export default function Login() {
                 <span>Google</span>
               </button>
             </div>
+            </form>
 
             <div className="an-acccount">
               <span>Don’t have an account ?</span>{" "}
