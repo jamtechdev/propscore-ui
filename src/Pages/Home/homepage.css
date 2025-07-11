@@ -188,6 +188,7 @@ body {
   border: none;
   padding-left: 25px;
   outline: none;
+  background: transparent !important;
 }
 
 .form-control.search-container button.login-btn {
