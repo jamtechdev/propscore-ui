@@ -962,6 +962,7 @@ body {
     width: 100% !important;
     max-width: 100% !important;
     padding: 12px 14px 12px 30px !important;
+    background: transparent !important;
   }
 
   .form-control.search-container .inner-input > svg {
