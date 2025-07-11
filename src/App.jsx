@@ -9,7 +9,7 @@ import VerifyEmailPage from "./Pages/ForgotPassword/VerifyEmailPage.jsx";
 import Layout from "./Layout/layout.jsx";
 import Home from "./Pages/Home/index.jsx";
 import About from "./Pages/About/about.jsx";
-import VerifyEmail from "./Component/VerifyEmail/verify.jsx"; 
+// import VerifyEmail from "./Component/VerifyEmail/verify.jsx"; 
 
 
 function App() {
@@ -24,9 +24,9 @@ function App() {
         <Route path="forgot-password" element={<ForgotPassword />} />
       </Route>
 
-      <Route path="/">
+      {/* <Route path="/">
         <Route path="verifyEmail" element={<VerifyEmail />} />
-      </Route>
+      </Route> */}
 
       {/* Main App Layout */}
       <Route path="/" element={<Layout />}>
