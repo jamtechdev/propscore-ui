@@ -116,7 +116,7 @@ export default function ResetPassword() {
   };
 
   return (
-    <>
+    <div className="auth-wrapper">
       <Header_V1 goBack={goBack} canGoBack={true} />
       <main>
         <section className="login-section forgot_password reset-password">
@@ -267,6 +267,6 @@ export default function ResetPassword() {
           </div>
         </section>
       </main>
-    </>
+    </div>
   );
 }

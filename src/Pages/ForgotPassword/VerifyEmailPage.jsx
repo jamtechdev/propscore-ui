@@ -44,6 +44,7 @@ export default function VerifyEmailPage() {
   const onVerify = async () => {
     setOtpError(null);
     setOtpSuccess(null);
+    console.log("verify otp");
     if (otp.length !== 6) {
       setOtpError("OTP must be 6 digits.");
       return;
@@ -102,7 +103,7 @@ export default function VerifyEmailPage() {
   }, [resendTimer]);
 
   return (
-    <>
+    <div className="auth-wrapper">
       <Header_V1 goBack={goBack} canGoBack={true} />
       <VerifyEmail
         userEmail={email}
@@ -115,6 +116,6 @@ export default function VerifyEmailPage() {
         loading={loading}
         resendTimer={resendTimer}
       />
-    </>
+    </div>
   );
 }

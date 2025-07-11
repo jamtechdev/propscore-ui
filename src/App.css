@@ -10,6 +10,9 @@
   line-height: normal;
 }
 
+.btn-group {
+    padding: 0;
+}
 
 @media screen and (max-width: 768px) {
   .login-box .or {
