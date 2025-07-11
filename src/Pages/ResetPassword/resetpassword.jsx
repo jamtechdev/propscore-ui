@@ -253,7 +253,7 @@ export default function ResetPassword() {
                     }
                     alt="toggle visibility"
                     style={{ cursor: "pointer" }}
-                    onClick={() => setShowPasswordConfirm(!showPassword)}
+                    onClick={() => setShowPasswordConfirm(!showPasswordConfirm)}
                   />
                 </div>
               </div>
