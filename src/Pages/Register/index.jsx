@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router";
 import api from "../../api.js";
 import Header_V1 from "../../Component/header/header-v1/header.jsx";
 import "./index.css";
-// import PlacesAutocompleteInput from "../../Component/Autocomplete/PlacesAutoComplete.jsx";
+import PlacesAutocompleteInput from "../../Component/Autocomplete/PlacesAutoComplete.jsx";
 
 export default function Register() {
   const navigate = useNavigate();
@@ -288,22 +288,24 @@ export default function Register() {
                   <form className="row g-3">
                     {/* Step 2 */}
                     <div className="form-group col-md-6 col-12 ps-0">
-                      <label className="form-label">First Name</label>
-                      <input
-                        type="text"
-                        name="first_name"
-                        className="form-control"
-                        value={formData.first_name}
-                        onChange={handleChange}
-                      />
-                    </div>
-                    <div className="form-group col-md-6 col-12 pe-0">
                       <label className="form-label">Last Name</label>
                       <input
                         type="text"
                         name="last_name"
+                        placeholder="Enter your last name"
                         className="form-control"
                         value={formData.last_name}
+                        onChange={handleChange}
+                      />
+                    </div>
+                    <div className="form-group col-md-6 col-12 pe-0">
+                      <label className="form-label">First Name</label>
+                      <input
+                        type="text"
+                        name="first_name"
+                        placeholder="Enter your first name"
+                        className="form-control"
+                        value={formData.first_name}
                         onChange={handleChange}
                       />
                     </div>
@@ -346,12 +348,19 @@ export default function Register() {
                     ) && (
                       <div className="form-group col-12 px-0">
                         <label className="form-label">Address</label>
-                        <input
-                          type="text"
+                        <PlacesAutocompleteInput
                           name="address"
-                          className="form-control"
+                          placeholder="Enter your full home address"
                           value={formData.address}
                           onChange={handleChange}
+                          onPlaceSelected={(place) => {
+                            const formattedAddress =
+                              place.formatted_address || "";
+                            setFormData((prev) => ({
+                              ...prev,
+                              address: formattedAddress,
+                            }));
+                          }}
                         />
                       </div>
                     )}
@@ -359,24 +368,38 @@ export default function Register() {
                       <>
                         <div className="form-group col-12 px-0">
                           <label className="form-label">MLS Regions</label>
-                          <input
-                            type="text"
+                          <PlacesAutocompleteInput
                             name="mls_regions"
-                            className="form-control"
+                            placeholder="Enter your MLS regions/areas"
                             value={formData.mls_regions}
                             onChange={handleChange}
+                            onPlaceSelected={(place) => {
+                              const formattedAddress =
+                                place.formatted_address || "";
+                              setFormData((prev) => ({
+                                ...prev,
+                                mls_regions: formattedAddress,
+                              }));
+                            }}
                           />
                         </div>
                         <div className="form-group col-12 px-0">
                           <label className="form-label">
                             First Property Address to Score
                           </label>
-                          <input
-                            type="text"
+                          <PlacesAutocompleteInput
                             name="first_property_address"
-                            className="form-control"
+                            placeholder="Enter your full property address"
                             value={formData.first_property_address}
                             onChange={handleChange}
+                            onPlaceSelected={(place) => {
+                              const formattedAddress =
+                                place.formatted_address || "";
+                              setFormData((prev) => ({
+                                ...prev,
+                                first_property_address: formattedAddress,
+                              }));
+                            }}
                           />
                         </div>
                         <div className="form-group col-12 px-0">
@@ -384,6 +407,7 @@ export default function Register() {
                           <input
                             type="text"
                             name="agency_name"
+                            placeholder="Enter agency name"
                             className="form-control"
                             value={formData.agency_name}
                             onChange={handleChange}
@@ -394,6 +418,7 @@ export default function Register() {
                           <input
                             type="text"
                             name="license_number"
+                            placeholder="Enter license number"
                             className="form-control"
                             value={formData.license_number}
                             onChange={handleChange}
