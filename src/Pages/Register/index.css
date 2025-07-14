@@ -485,7 +485,7 @@ body {
 
   section.login-section {
     align-items: flex-end;
-    min-height: calc(100vh - 66px);
+    min-height: calc(100vh - 87px);
   }
 
   .login-section .login-box {
@@ -908,7 +908,7 @@ body {
   }
 
   .footer-bottom {
-    padding: 12px 16px 40px;
+    padding: 12px 0px 40px;
   }
 
   .footer::before{
@@ -1310,7 +1310,7 @@ body {
   }
 
   .agent-section .card .card-body .agent-img {
-    padding-top: 190px !important;
+    padding-top: 200px !important;
   }
 
   .agent-section .agent-card-block {
@@ -1563,7 +1563,7 @@ body {
   }
 
   .get-early-section .max-w-605 .d-flex.gap-3 .glass-btn:last-child {
-    margin-bottom: 30px;
+    margin-bottom: 40px;
   }
 
   .get-early-section .max-w-605 .contents {

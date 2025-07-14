@@ -18,7 +18,7 @@ export default function RealEstate () {
                 </p>
               </div>
               <div className="row ">
-                <div className="col-xl-3 col-6 second-mob">
+                <div className="col-xl-3 col-6 second-mob p-2">
                   <div className="driven-sell green">
                     <div className="d-flex gap-2 align-items-center">
                       <img src="/imgs/data-drive.svg" alt="" />
@@ -30,7 +30,7 @@ export default function RealEstate () {
                     </div>
                   </div>
                 </div>
-                <div className="col-xl-3 col-12 first-mob">
+                <div className="col-xl-3 col-12 first-mob p-2">
                   <div className="driven-sell bg-banner-1">
                     <div className="d-flex gap-2 align-items-center">
                       <img src="/imgs/private-investor.png" alt="" />
@@ -42,7 +42,7 @@ export default function RealEstate () {
                     </div>
                   </div>
                 </div>
-                <div className="col-xl-3 col-6 third-mob">
+                <div className="col-xl-3 col-6 third-mob p-2">
                   <div className="driven-sell list-agent">
                     <div className="d-flex gap-2 align-items-center">
                       <img src="/imgs/list-agent.png" alt="" />
@@ -54,7 +54,7 @@ export default function RealEstate () {
                     </div>
                   </div>
                 </div>
-                <div className="col-xl-3 col-12 four-mob">
+                <div className="col-xl-3 col-12 four-mob p-2">
                   <div className="driven-sell bg-banner-2">
                     <div className="d-flex gap-2 align-items-center">
                       <img src="/imgs/home-flag.png" alt="" />
@@ -66,7 +66,7 @@ export default function RealEstate () {
                     </div>
                   </div>
                 </div>
-                <div className="col-xl-3 col-6 fifth-mob">
+                <div className="col-xl-3 col-6 fifth-mob p-2">
                   <div className="driven-sell bg-banner-3">
                     <div className="d-flex gap-2 align-items-center">
                       <img src="/imgs/user-outline.png" alt="" />
@@ -78,7 +78,7 @@ export default function RealEstate () {
                     </div>
                   </div>
                 </div>
-                <div className="col-xl-6 col-12 last-mob">
+                <div className="col-xl-6 col-12 last-mob p-2">
                   <div className="password-status">
                     <p className="d-flex align-items-center justify-content-between must-includes">
                       <span className="includes">Why PropScore Works</span>
@@ -180,7 +180,7 @@ export default function RealEstate () {
                     </ul>
                   </div>
                 </div>
-                <div className="col-xl-3 col-6 sixth-mob">
+                <div className="col-xl-3 col-6 sixth-mob p-2">
                   <div className="driven-sell bg-lime">
                     <div className="d-flex gap-2 align-items-center">
                       <svg
