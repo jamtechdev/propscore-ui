@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from "react-router";
 import VerifyEmail from "../../Component/VerifyEmail/verify.jsx";
 import api from "../../api.js";
 import Header_V1 from "../../Component/header/header-v1/header.jsx";
+import { toast } from "react-toastify"; // Make sure this is imported
 
 export default function VerifyEmailPage() {
   const location = useLocation();
@@ -13,7 +14,7 @@ export default function VerifyEmailPage() {
   const [otp, setOtp] = useState("");
   const [otpError, setOtpError] = useState(null);
   const [otpSuccess, setOtpSuccess] = useState(null);
-  const [resendTimer, setResendTimer] = useState(59);
+  const [resendTimer, setResendTimer] = useState(0);
   const [loading, setLoading] = useState(false); // Initialize as false
 
   const goBack = () => {
@@ -41,38 +42,37 @@ export default function VerifyEmailPage() {
     reset: "/resend-otp-reset",
   };
 
-  const onVerify = async () => {
+const onVerify = async () => {
+  setOtpError(null);
+  setOtpSuccess(null);
+  setLoading(true);
+  try {
+    const payload =
+      mode === "reset" ? { email, otp } : { user_id: userId, otp };
+
+    const response = await api.post(verifyEndpoints[mode], payload);
+    const token = response?.data.token;
+
     setOtpError(null);
+    setOtpSuccess("OTP verified successfully!");
+
+    if (mode === "reset") {
+      // toast.success("Password reset Successfully.");
+      navigate("/auth/reset-password", { state: { email, otp } });
+    } else {
+      navigate("/");
+      localStorage.setItem("token", token);
+      toast.success("Registration Successful.");
+    }
+  } catch (error) {
     setOtpSuccess(null);
-    console.log("verify otp");
-    if (otp.length !== 6) {
-      setOtpError("OTP must be 6 digits.");
-      return;
-    }
-
-    try {
-      const payload =
-        mode === "reset" ? { email, otp } : { user_id: userId, otp };
-
-      await api.post(verifyEndpoints[mode], payload);
-
-      setOtpSuccess("OTP verified successfully!");
-
-      // Redirect user after verification based on mode
-      if (mode === "reset") {
-        navigate("/auth/reset-password", { state: { email, otp } });
-      } else {
-        setTimeout(() => {
-          navigate("/");
-        }, 2000);
-      }
-    } catch (error) {
-      setOtpError(
-        error.response?.data?.error ||
-          "Invalid or expired OTP. Please try again."
-      );
-    }
-  };
+    setOtpError(
+      error.response?.data?.error || "Invalid or expired OTP. Please try again."
+    );
+  } finally {
+    setLoading(false); 
+  }
+ };
 
   const resendOtp = async () => {
     setLoading(true); // Set loading to true while API call is in progress

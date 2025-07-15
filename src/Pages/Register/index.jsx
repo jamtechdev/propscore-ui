@@ -7,6 +7,7 @@ import PlacesAutocompleteInput from "../../Component/Autocomplete/PlacesAutoComp
 
 export default function Register() {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const handleMessage = (event) => {
@@ -187,6 +188,7 @@ export default function Register() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     try {
       const payload = { ...formData };
       delete payload.agreeTerms;
@@ -201,6 +203,8 @@ export default function Register() {
     } catch (err) {
       if (err.response?.data?.errors) setErrors(err.response.data.errors);
       else alert("An error occurred.");
+    } finally {
+      setLoading(false); 
     }
   };
 
@@ -343,7 +347,7 @@ export default function Register() {
                         ))}
                       </select>
                     </div>
-                    {["agent", "client", "private_buyer", "investor"].includes(
+                    {["client", "private_buyer", "investor"].includes(
                       formData.role
                     ) && (
                       <div className="form-group col-12 px-0">
@@ -364,7 +368,7 @@ export default function Register() {
                         />
                       </div>
                     )}
-                    {formData.role === "broker" && (
+                    {formData.role === "broker" || "agent" && (
                       <>
                         <div className="form-group col-12 px-0">
                           <label className="form-label">MLS Regions</label>
@@ -576,8 +580,12 @@ export default function Register() {
                   {errors && <div className="text-danger mb-3">{errors}</div>}
 
                   <div className="form-group mb-3">
-                    <button type="submit" className="login-btn">
-                      Create Account
+                    <button
+                      type="submit"
+                      className={`login-btn ${loading ? 'disabled' : ''}`}
+                      disabled={loading}
+                    >
+                      {loading ? "Creating..." : "Create Account"}
                     </button>
                   </div>
 

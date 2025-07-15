@@ -24,6 +24,11 @@ body {
   background-color: var(--body-bg) !important;
 }
 
+button.disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
 .primary-gradient-heading {
   background: linear-gradient(to left, #1aa788, #006f6f);
   -webkit-background-clip: text;

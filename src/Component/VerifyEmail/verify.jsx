@@ -14,6 +14,7 @@ export default function VerifyEmail({
 }) {
   // Split otp into array of 6 digits for controlled inputs
   const [otpDigits, setOtpDigits] = useState(Array(6).fill(""));
+  const [localError, setLocalError] = useState(""); // For validation error on submit
 
   const inputsRef = useRef([]);
 
@@ -39,6 +40,9 @@ export default function VerifyEmail({
       if (val && index < 5) {
         inputsRef.current[index + 1].focus();
       }
+
+      // Clear local error on input change
+      if (localError) setLocalError("");
     }
   };
 
@@ -47,6 +51,18 @@ export default function VerifyEmail({
     if (e.key === "Backspace" && !otpDigits[index] && index > 0) {
       inputsRef.current[index - 1].focus();
     }
+  };
+
+  // Form submit handler with length check
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const enteredOtp = otpDigits.join("");
+    if (enteredOtp.length < 6) {
+      setLocalError("Please enter the complete 6-digit code.");
+      return;
+    }
+    setLocalError("");
+    onVerify();
   };
 
   return (
@@ -69,13 +85,7 @@ export default function VerifyEmail({
             below to continue.
           </p>
 
-          <form
-            className="px-24 login-form"
-            onSubmit={(e) => {
-              e.preventDefault();
-              onVerify();
-            }}
-          >
+          <form className="px-24 login-form" onSubmit={handleSubmit}>
             <div className="form-group mb-4 d-flex align-items-center gap-2 justify-content-center">
               {otpDigits.map((digit, index) => (
                 <input
@@ -98,7 +108,11 @@ export default function VerifyEmail({
               ))}
             </div>
 
-            {otpError && <div className="text-danger mb-2">{otpError}</div>}
+            {/* Show local validation error first, then external otpError */}
+            {(localError || otpError) && (
+              <div className="text-danger mb-2">{localError || otpError}</div>
+            )}
+
             {otpSuccess && (
               <div className="text-success mb-2">{otpSuccess}</div>
             )}
@@ -106,10 +120,10 @@ export default function VerifyEmail({
             <div className="form-group mb-3">
               <button
                 type="submit"
-                className="login-btn"
+                className={`login-btn ${loading ? "disabled" : ""}`}
                 disabled={loading}
               >
-                Verify Code
+                {loading ? "Verifying..." : "Verify Code"}
               </button>
             </div>
 

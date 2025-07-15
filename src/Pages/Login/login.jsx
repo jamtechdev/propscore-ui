@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router"; 
+import { Link, useNavigate } from "react-router";
 import "./login.css";
 import Header_V1 from "../../Component/header/header-v1/header.jsx";
 import api from "../../api.js";
+import { toast } from "react-toastify";
 
 export default function Login() {
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -15,19 +17,26 @@ export default function Login() {
   const navigate = useNavigate();
 
   useEffect(() => {
-      const handleMessage = (event) => {
-        const { success, token } = event.data;
-        if (success) {
-          localStorage.setItem("token", token);
-          // Navigate to homepage
-          navigate("/");
-        }
-      };
-      window.addEventListener("message", handleMessage);
-      return () => {
-        window.removeEventListener("message", handleMessage);
-      };
-    }, [navigate]);
+    const token = localStorage.getItem("token");
+
+    if (typeof token === "string" && token.trim() !== "") {
+      toast.success("You are already logged in");
+      navigate("/"); 
+    }
+
+    const handleMessage = (event) => {
+      const { success, token } = event.data;
+      if (success && token) {
+        localStorage.setItem("token", token);
+        navigate("/");
+      }
+    };
+
+    window.addEventListener("message", handleMessage);
+    return () => {
+      window.removeEventListener("message", handleMessage);
+    };
+  }, [navigate]);
 
   const handleChange = (e) => {
     setFormData({
@@ -42,47 +51,39 @@ export default function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     setError("");
 
     try {
       const response = await api.post("/login", formData);
+      const user_id = response?.data.user.id;
+      const token = response?.data.token;
 
-      const user_id = response.data.user.id;
-      const token = response.data.token;
+      if (response.data.status === true) {
+        localStorage.setItem("token", token);
+        toast.success(response.data.message);
+        navigate("/");
+      }
 
-      localStorage.setItem("token", token);
-
-      // Send OTP request
-      await api.post("/send-otp", {
-        user_id,
-      });
-
-      // Navigate VerifyEmailPage
-      navigate("/auth/verify-email", {
-        state: {
-          email: formData.email,
-          userId: user_id,
-          mode: "login",
-        },
-      });
+      // Optional OTP logic (currently commented)
     } catch (error) {
-      if (error.response?.data?.errors) {
+      if (error?.response?.data?.errors) {
         setError(error.response.data.errors);
       } else if (error.response?.data?.message) {
         setError(error.response.data.message);
       } else {
         setError("An unexpected error occurred.");
       }
+    } finally {
+      setLoading(false);
     }
   };
 
   const handleClickAuth = async () => {
     try {
-      // Make the API call
-      const res = await api.get('/auth/google');
-
-      // Open popup as before
+      const res = await api.get("/auth/google");
       const popupUrl = res.data.url;
+
       const width = 500;
       const height = 600;
       const left = (window.innerWidth - width) / 2;
@@ -99,12 +100,12 @@ export default function Login() {
       }
     } catch (err) {
       if (err.response?.data?.errors) {
-        setErrors(err.response.data.errors);
+        setError(err.response.data.errors);
       } else {
         alert("An error occurred.");
       }
     }
-  };  
+  };
 
   return (
     <div className="auth-wrapper">
@@ -168,33 +169,37 @@ export default function Login() {
               )}
 
               <div className="form-group mb-3">
-                <button type="submit" className="login-btn">
-                  Log In
+                <button
+                  type="submit"
+                  className={`login-btn ${loading ? "disabled" : ""}`}
+                  disabled={loading}
+                >
+                  {loading ? "Logging..." : "Log In"}
                 </button>
               </div>
 
-               <div className="px-24 mb-xl-3">
-              <p className="or text-center">or continue with</p>
-            </div>
+              <div className="px-24 mb-xl-3">
+                <p className="or text-center">or continue with</p>
+              </div>
 
-            <div className="d-flex px-24 btn-group align-items-center justify-content-between gap-3 mb-4">
-              <button
-                type="submit"
-                className="btn btn-facebook d-flex align-items-center justify-content-center gap-2"
-                onClick={handleClickAuth}
-              >
-                <img src="/imgs/logos_facebook.svg" alt="" />
-                <span>Facebook</span>
-              </button>
-              <button
-                type="submit"
-                className="btn btn-facebook d-flex align-items-center justify-content-center gap-2"
-                onClick={handleClickAuth}
-              >
-                <img src="/imgs/devicon_google.svg" alt="" />
-                <span>Google</span>
-              </button>
-            </div>
+              <div className="d-flex px-24 btn-group align-items-center justify-content-between gap-3 mb-4">
+                <button
+                  type="submit"
+                  className="btn btn-facebook d-flex align-items-center justify-content-center gap-2"
+                  onClick={handleClickAuth}
+                >
+                  <img src="/imgs/logos_facebook.svg" alt="" />
+                  <span>Facebook</span>
+                </button>
+                <button
+                  type="submit"
+                  className="btn btn-facebook d-flex align-items-center justify-content-center gap-2"
+                  onClick={handleClickAuth}
+                >
+                  <img src="/imgs/devicon_google.svg" alt="" />
+                  <span>Google</span>
+                </button>
+              </div>
             </form>
 
             <div className="an-acccount">
