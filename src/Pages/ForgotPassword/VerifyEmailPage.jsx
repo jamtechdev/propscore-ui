@@ -50,7 +50,7 @@ const onVerify = async () => {
     setOtpError("OTP must be 6 digits.");
     return;
   }
-
+  setLoading(true);
   try {
     const payload =
       mode === "reset" ? { email, otp } : { user_id: userId, otp };
@@ -74,6 +74,8 @@ const onVerify = async () => {
     setOtpError(
       error.response?.data?.error || "Invalid or expired OTP. Please try again."
     );
+  } finally {
+    setLoading(false); 
   }
  };
 

@@ -106,10 +106,10 @@ export default function VerifyEmail({
             <div className="form-group mb-3">
               <button
                 type="submit"
-                className="login-btn"
+                className={`login-btn ${loading ? "disabled" : ""}`}
                 disabled={loading}
               >
-                Verify Code
+                {loading ? "Verifying..." : "Verify Code"}
               </button>
             </div>
 

@@ -169,8 +169,12 @@ export default function Login() {
               )}
 
               <div className="form-group mb-3">
-                <button type="submit" className="login-btn">
-                  {loading ? "Loging..." : "Log In"}
+                <button
+                  type="submit"
+                  className={`login-btn ${loading ? "disabled" : ""}`}
+                  disabled={loading}
+                >
+                  {loading ? "Logging..." : "Log In"}
                 </button>
               </div>
 

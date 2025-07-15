@@ -4,10 +4,12 @@ import { useLocation, useNavigate } from "react-router";
 import "./resetpassword.css";
 import Header_V1 from "../../Component/header/header-v1/header.jsx";
 import api from "../../api.js";
+import { toast } from "react-toastify";
 
 export default function ResetPassword() {
   const location = useLocation();
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
   const checkPasswordStrength = (password) => {
     const rules = {
@@ -69,41 +71,33 @@ export default function ResetPassword() {
     e.preventDefault();
     setError("");
     setSuccessMessage(null);
+    setLoading(true);
 
     try {
       if (email && otp) {
-        const response = await api.post(
-          "/forgot-password-reset",
-          {
-            email,
-            otp,
-            password: formData.password,
-            password_confirmation: formData.password_confirmation,
-          }
-        );
+        const response = await api.post("/forgot-password-reset", {
+          email,
+          otp,
+          password: formData.password,
+          password_confirmation: formData.password_confirmation,
+        });
         setSuccessMessage(
           response.data.message || "Password reset successful!"
         );
-        // Redirect to login page after 5 seconds
-        setTimeout(() => {
-          navigate("/auth/login");
-        }, 5000);
+        toast.success("Password Reset Successfully");
+        navigate("/auth/login");
       } else {
         const token = localStorage.getItem("token");
-        const response = await api.post(
-          "/resetPassword",
-          formData,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
+        const response = await api.post("/resetPassword", formData, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
         setSuccessMessage(
           response.data.message || "Password reset successful!"
         );
+        toast.success("Password Reset Successfully");
       }
-
     } catch (error) {
       if (error.response?.data?.errors) {
         setError(JSON.stringify(error.response.data.errors));
@@ -112,6 +106,8 @@ export default function ResetPassword() {
       } else {
         setError("An unexpected error occurred.");
       }
+    } finally {
+      setLoading(false); 
     }
   };
 
@@ -259,8 +255,12 @@ export default function ResetPassword() {
               </div>
 
               <div className="form-group mb-3">
-                <button type="submit" className="login-btn">
-                  Reset Password
+                <button
+                  type="submit"
+                  className={`login-btn ${loading ? "disabled" : ""}`}
+                  disabled={loading}
+                >
+                  {loading ? "Resetting..." : "Reset Password"}
                 </button>
               </div>
             </form>
