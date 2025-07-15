@@ -1,3 +1,5 @@
+@import url('./dashboard.css');
+
 .auth-wrapper #login-header{
     background: transparent !important;
 }

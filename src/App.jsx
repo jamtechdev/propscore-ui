@@ -7,8 +7,10 @@ import ResetPassword from "./Pages/ResetPassword/resetpassword.jsx";
 import ForgotPassword from "./Pages/ForgotPassword/forgotpassword.jsx";
 import VerifyEmailPage from "./Pages/ForgotPassword/VerifyEmailPage.jsx";
 import Layout from "./Layout/layout.jsx";
+import DashboardLayout from "./Layout/DashboardLayout.jsx";
 import Home from "./Pages/Home/index.jsx";
 import About from "./Pages/About/about.jsx";
+import AccountSetting from "./Pages/Dashboard/accountSetting.jsx";
 // import VerifyEmail from "./Component/VerifyEmail/verify.jsx"; 
 
 
@@ -32,6 +34,10 @@ function App() {
       <Route path="/" element={<Layout />}>
         <Route index element={<Home />} />
         <Route path="about" element={<About />} />
+      </Route>
+
+      <Route path="/dashboard" element={<DashboardLayout />}>
+        <Route path="account-setting" element={<AccountSetting/>} />
       </Route>
     </Routes>
   );
