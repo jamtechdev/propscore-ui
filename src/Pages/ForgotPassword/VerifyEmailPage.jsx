@@ -14,7 +14,7 @@ export default function VerifyEmailPage() {
   const [otp, setOtp] = useState("");
   const [otpError, setOtpError] = useState(null);
   const [otpSuccess, setOtpSuccess] = useState(null);
-  const [resendTimer, setResendTimer] = useState(59);
+  const [resendTimer, setResendTimer] = useState(0);
   const [loading, setLoading] = useState(false); // Initialize as false
 
   const goBack = () => {
@@ -45,11 +45,6 @@ export default function VerifyEmailPage() {
 const onVerify = async () => {
   setOtpError(null);
   setOtpSuccess(null);
-
-  if (otp.length !== 6) {
-    setOtpError("OTP must be 6 digits.");
-    return;
-  }
   setLoading(true);
   try {
     const payload =

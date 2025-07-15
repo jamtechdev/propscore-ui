@@ -347,7 +347,7 @@ export default function Register() {
                         ))}
                       </select>
                     </div>
-                    {["agent", "client", "private_buyer", "investor"].includes(
+                    {["client", "private_buyer", "investor"].includes(
                       formData.role
                     ) && (
                       <div className="form-group col-12 px-0">
@@ -368,7 +368,7 @@ export default function Register() {
                         />
                       </div>
                     )}
-                    {formData.role === "broker" && (
+                    {formData.role === "broker" || "agent" && (
                       <>
                         <div className="form-group col-12 px-0">
                           <label className="form-label">MLS Regions</label>
