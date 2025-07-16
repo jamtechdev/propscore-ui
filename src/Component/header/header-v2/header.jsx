@@ -9,16 +9,43 @@ import api from "../../../api";
 export default function Header_V2() {
   const [token, setToken] = useState(localStorage.getItem("token"));
 
+  useEffect(() => {
+    const validateToken = async () => {
+      if (!token) return;
+
+      try {
+        await api.get("/validate-token", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+      } catch (error) {
+        if (error.response?.status === 401) {
+          // Token expired or invalid
+          handleLogout();
+        } else {
+          console.error("Token validation failed:", error);
+        }
+      }
+    };
+
+    validateToken();
+  }, []);
+
   const handleLogout = async () => {
     try {
-      const response = await api.post("/logout",{},{
-        headers: {
-          Authorization: `Bearer ${token}`,
+      const response = await api.post(
+        "/logout",
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
-      })
+      );
     } catch (error) {
       console.error("Logout error:", error);
-    } finally{
+    } finally {
       localStorage.clear();
       setToken(null);
       toast.success("Logged Out Successfully");
