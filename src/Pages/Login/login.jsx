@@ -65,7 +65,6 @@ export default function Login() {
         navigate("/");
       }
 
-      // Optional OTP logic (currently commented)
     } catch (error) {
       if (error?.response?.data?.errors) {
         setError(error.response.data.errors);
@@ -79,9 +78,9 @@ export default function Login() {
     }
   };
 
-  const handleClickAuth = async () => {
+  const handleClickAuth = async (provider) => {
     try {
-      const res = await api.get("/auth/google");
+      const res = await api.get(`/auth/${provider}`);
       const popupUrl = res.data.url;
 
       const width = 500;
@@ -186,7 +185,7 @@ export default function Login() {
                 <button
                   type="submit"
                   className="btn btn-facebook d-flex align-items-center justify-content-center gap-2"
-                  onClick={handleClickAuth}
+                  onClick={() => handleClickAuth("facebook")}
                 >
                   <img src="/imgs/logos_facebook.svg" alt="" />
                   <span>Facebook</span>
@@ -194,7 +193,7 @@ export default function Login() {
                 <button
                   type="submit"
                   className="btn btn-facebook d-flex align-items-center justify-content-center gap-2"
-                  onClick={handleClickAuth}
+                  onClick={() => handleClickAuth("google")}
                 >
                   <img src="/imgs/devicon_google.svg" alt="" />
                   <span>Google</span>

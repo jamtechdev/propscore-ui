@@ -124,7 +124,7 @@ export default function Register() {
     }
   };
 
-  const handleClickAuth = async () => {
+  const handleClickAuth = async (provider) => {
     try {
       // Pick relevant fields from formData (step 1 & 2)
       const {
@@ -157,7 +157,7 @@ export default function Register() {
       if (license_number) params.append("license_number", license_number);
 
       // Construct final URL
-      const url = `/auth/google?${params.toString()}`;
+      const url = `/auth/${provider}?${params.toString()}`;
       // Make the API call
       const res = await api.get(url);
 
@@ -368,7 +368,7 @@ export default function Register() {
                         />
                       </div>
                     )}
-                    {formData.role === "broker" || "agent" && (
+                    {["broker", "agent"].includes(formData.role) && (
                       <>
                         <div className="form-group col-12 px-0">
                           <label className="form-label">MLS Regions</label>
@@ -582,7 +582,7 @@ export default function Register() {
                   <div className="form-group mb-3">
                     <button
                       type="submit"
-                      className={`login-btn ${loading ? 'disabled' : ''}`}
+                      className={`login-btn ${loading ? "disabled" : ""}`}
                       disabled={loading}
                     >
                       {loading ? "Creating..." : "Create Account"}
@@ -597,7 +597,7 @@ export default function Register() {
                     <button
                       type="submit"
                       className="btn btn-facebook d-flex align-items-center justify-content-center gap-2"
-                      onClick={handleClickAuth}
+                      onClick={() => handleClickAuth("facebook")}
                     >
                       <img src="/imgs/logos_facebook.svg" alt="" />
                       <span>Facebook</span>
@@ -605,7 +605,7 @@ export default function Register() {
                     <button
                       type="submit"
                       className="btn btn-facebook d-flex align-items-center justify-content-center gap-2"
-                      onClick={handleClickAuth}
+                      onClick={() => handleClickAuth("google")}
                     >
                       <img src="/imgs/devicon_google.svg" alt="" />
                       <span>Google</span>

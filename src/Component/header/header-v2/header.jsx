@@ -4,17 +4,26 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import "./header.css";
 import { toast } from "react-toastify";
+import api from "../../../api";
 
 export default function Header_V2() {
   const [token, setToken] = useState(localStorage.getItem("token"));
 
-  const handleLogout = () => {
-    localStorage.clear();
-    setToken(null);
-    toast.success("Logout Successfully");
+  const handleLogout = async () => {
+    try {
+      const response = await api.post("/logout",{},{
+        headers: {
+          Authorization: `Bearer ${token}`,
+        }
+      })
+    } catch (error) {
+      console.error("Logout error:", error);
+    } finally{
+      localStorage.clear();
+      setToken(null);
+      toast.success("Logged Out Successfully");
+    }
   };
-
-  
 
   return (
     <>
