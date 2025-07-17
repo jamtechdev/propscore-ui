@@ -1,8 +1,134 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import DashboardTitle from "../../Component/DashboardTitle";
 import DashboardSidebar from "../../Component/DashboardSidebar";
+import api from "../../api";
+import { toast } from "react-toastify";
 
 export default function AccountSetting() {
+  const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
+  const [error, setError] = useState(null);
+  const [profile, setProfile] = useState({
+    first_name: "",
+    last_name: "",
+    email: "",
+    phone_number: "",
+    profile_picture: "/imgs/user_dp.png",
+    role: "",
+    license_number: "",
+    mls_regions: "",
+    agency_name: "",
+  });
+
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        const response = await api.get("/get-Profile", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        if (response.data.status) {
+          setProfile({
+            ...profile,
+            ...response.data.data,
+            profile_picture:
+              response.data.data.profile_picture || "/imgs/user_dp.png",
+          });
+        } else {
+          toast.error("Failed to load profile");
+        }
+      } catch (error) {
+        setError("Error loading profile.");
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchProfile();
+  }, []);
+
+  const handleUpload = async (event) => {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    const formData = new FormData();
+    formData.append("profile_picture", file);
+
+    try {
+      const token = localStorage.getItem("token");
+      const response = await api.post("/profile/picture", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (response.data.status) {
+        // Update profile picture URL on success
+        setProfile((prev) => ({
+          ...prev,
+          profile_picture:
+            response.data.data.profile_picture || prev.profile_picture,
+        }));
+        toast.success("Profile picture updated successfully");
+      } else {
+        toast.error("Failed to upload profile picture");
+      }
+    } catch (error) {
+      console.error("Upload failed:", error.response?.data || error.message);
+      toast.error("Failed to upload profile picture");
+    }
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setProfile((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+    const handleSave = async () => {
+      setSaving(true);
+      setError(null);
+
+      try {
+        const token = localStorage.getItem("token");
+        const response = await api.post(
+          "/update-Profile",
+          { ...profile},
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        if (response.data.status) {
+          toast.success("Changes saved successfully");
+          setProfile((prev) => ({
+            ...prev,
+            ...response.data.data,
+            profile_picture:
+              response.data.data.profile_picture || prev.profile_picture,
+          }));
+        } else {
+          setError("Failed to update profile.");
+        }
+      } catch (error) {
+        setError(
+          error.response?.data?.errors ||
+            error.message ||
+            "An error occurred while updating."
+        );
+      } finally {
+        setSaving(false);
+      }
+    };
+
+    if (loading) {
+      return <div>Loading profile...</div>;
+    }
+
   return (
     <>
       <DashboardTitle
@@ -35,7 +161,7 @@ export default function AccountSetting() {
                   >
                     <div style={{ gridColumn: "span 2" }}>
                       <div className="avatar-profile">
-                        <img src="/imgs/avatar.png" />
+                        <img src={profile.profile_picture}/>
                         <div className="file-select">
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -51,7 +177,11 @@ export default function AccountSetting() {
                               fill="#FDFDFD"
                             />
                           </svg>
-                          <input type="file" />
+                          <input
+                            type="file"
+                            accept="image/jpeg,image/png,image/jpg,image/gif"
+                            onChange={handleUpload}
+                          />
                         </div>
                       </div>
                     </div>
@@ -61,7 +191,10 @@ export default function AccountSetting() {
                         <input
                           type="text"
                           className="form-control"
-                          placeholder="Ion"
+                          placeholder="First Name"
+                          name="first_name"
+                          value={profile.first_name}
+                          onChange={handleChange}
                         />
                       </div>
                     </div>
@@ -71,7 +204,10 @@ export default function AccountSetting() {
                         <input
                           type="text"
                           className="form-control"
-                          placeholder="Pantalon"
+                          placeholder="Last Name"
+                          name="last_name"
+                          value={profile.last_name}
+                          onChange={handleChange}
                         />
                       </div>
                     </div>
@@ -94,7 +230,10 @@ export default function AccountSetting() {
                           <input
                             type="email"
                             className="form-control"
-                            placeholder="ionpantalon@gmail.com"
+                            placeholder="Email"
+                            name="email"
+                            value={profile.email}
+                            onChange={handleChange}
                           />
                         </div>
                       </div>
@@ -120,7 +259,10 @@ export default function AccountSetting() {
                           <input
                             type="text"
                             className="form-control"
-                            placeholder="(555) 456-5678"
+                            placeholder="Phone Number"
+                            name="phone_number"
+                            value={profile.phone_number}
+                            onChange={handleChange}
                           />
                         </div>
                       </div>
@@ -148,11 +290,17 @@ export default function AccountSetting() {
                     <div>
                       <div className="dashboard-form">
                         <label className="form-label">Account Type</label>
-                        <select className="form-select">
-                          <option selected>Agent</option>
-                          <option value="1">One</option>
-                          <option value="2">Two</option>
-                          <option value="3">Three</option>
+                        <select
+                          name="role"
+                          className="form-select"
+                          value={profile.role}
+                          onChange={handleChange}
+                        >
+                          <option value="agent">Agent</option>
+                          <option value="client">Client</option>
+                          <option value="private_buyer">Private Buyer</option>
+                          <option value="investor">Investor</option>
+                          <option value="broker">Broker</option>
                         </select>
                       </div>
                     </div>
@@ -162,7 +310,10 @@ export default function AccountSetting() {
                         <input
                           type="text"
                           className="form-control"
-                          placeholder="11160263"
+                          placeholder="License Number"
+                          name="license_number"
+                          value={profile.license_number}
+                          onChange={handleChange}
                         />
                       </div>
                     </div>
@@ -183,9 +334,12 @@ export default function AccountSetting() {
                             />
                           </svg>
                           <input
-                            type="email"
+                            type="text"
                             className="form-control"
-                            placeholder="UT"
+                            placeholder="MLS Regions"
+                            name="mls_regions"
+                            value={profile.mls_regions}
+                            onChange={handleChange}
                           />
                         </div>
                       </div>
@@ -198,7 +352,10 @@ export default function AccountSetting() {
                         <input
                           type="text"
                           className="form-control"
-                          placeholder="OO Agency"
+                          placeholder="Agency Name"
+                          name="agency_name"
+                          value={profile.agency_name}
+                          onChange={handleChange}
                         />
                       </div>
                     </div>
@@ -208,7 +365,13 @@ export default function AccountSetting() {
             </div>
           </div>
           <div className="pt-4 d-flex align-items-center justify-content-end">
-            <button className="dashboard-btn">Save</button>
+            <button
+              className="dashboard-btn"
+              onClick={handleSave}
+              disabled={saving}
+            >
+              {saving ? "Saving..." : "Save"}
+            </button>
           </div>
         </div>
       </div>
