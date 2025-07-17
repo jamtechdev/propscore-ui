@@ -12,6 +12,8 @@ import Home from "./Pages/Home/index.jsx";
 import About from "./Pages/About/about.jsx";
 import PropScore from "./Pages/PropScore/page.jsx";
 import AccountSetting from "./Pages/Dashboard/accountSetting.jsx";
+import Password from "./Pages/Dashboard/password.jsx";
+import Subscription from "./Pages/Dashboard/subscription.jsx";
 // import VerifyEmail from "./Component/VerifyEmail/verify.jsx"; 
 
 
@@ -40,6 +42,8 @@ function App() {
 
       <Route path="/dashboard" element={<DashboardLayout />}>
         <Route path="account-setting" element={<AccountSetting/>} />
+        <Route path="password" element={<Password/>} />
+        <Route path="subscription" element={<Subscription/>} />
       </Route>
     </Routes>
   );

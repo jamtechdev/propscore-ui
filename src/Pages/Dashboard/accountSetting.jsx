@@ -70,9 +70,10 @@ export default function AccountSetting() {
                         <label className="form-label">Last Name</label>
                         <input
                           type="text"
-                          className="form-control"
+                          className="form-control form-control-invalid"
                           placeholder="Pantalon"
                         />
+                        <span className="error-text">You should enter your last name</span>
                       </div>
                     </div>
                     <div>
