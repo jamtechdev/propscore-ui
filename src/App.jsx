@@ -37,7 +37,7 @@ function App() {
       </Route>
 
       <Route path="/dashboard" element={<DashboardLayout />}>
-        <Route path="account-setting" element={<AccountSetting/>} />
+        <Route index element={<AccountSetting/>} />
       </Route>
     </Routes>
   );
