@@ -7,6 +7,14 @@ export default function HeroSection() {
   return (
     <>
       <section className="hero-section">
+        <div className="grid-line-wrapper">
+          <div className="grid-line"></div>
+          <div className="grid-line"></div>
+          <div className="grid-line"></div>
+          <div className="grid-line"></div>
+          <div className="grid-line"></div>
+          <div className="grid-line"></div>
+        </div>
         <div>
           <div className="row">
             <div className="col-xl-5">
@@ -130,7 +138,7 @@ export default function HeroSection() {
             <img src="/imgs/coldwell_banker.png" alt="" />
             <img src="/imgs/km.png" alt="" />
             <img src="/imgs/compass.png" alt="" />
-             <img src="/imgs/exp.png" alt="" />
+            <img src="/imgs/exp.png" alt="" />
             <img src="/imgs/redfin.png" alt="" />
             <img src="/imgs/century_21.png" alt="" />
             <img src="/imgs/douglas.png" alt="" />

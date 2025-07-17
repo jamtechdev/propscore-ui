@@ -10,6 +10,7 @@ import Layout from "./Layout/layout.jsx";
 import DashboardLayout from "./Layout/DashboardLayout.jsx";
 import Home from "./Pages/Home/index.jsx";
 import About from "./Pages/About/about.jsx";
+import PropScore from "./Pages/PropScore/page.jsx";
 import AccountSetting from "./Pages/Dashboard/accountSetting.jsx";
 // import VerifyEmail from "./Component/VerifyEmail/verify.jsx"; 
 
@@ -34,6 +35,7 @@ function App() {
       <Route path="/" element={<Layout />}>
         <Route index element={<Home />} />
         <Route path="about" element={<About />} />
+        <Route path="propscore" element={<PropScore />} />
       </Route>
 
       <Route path="/dashboard" element={<DashboardLayout />}>
