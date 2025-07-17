@@ -54,14 +54,6 @@ export default function Header_V2() {
 
   return (
     <>
-      <div className="grid-line-wrapper">
-        <div className="grid-line"></div>
-        <div className="grid-line"></div>
-        <div className="grid-line"></div>
-        <div className="grid-line"></div>
-        <div className="grid-line"></div>
-        <div className="grid-line"></div>
-      </div>
 
       <header className="header">
         <nav className="navbar navbar-expand-xl">
