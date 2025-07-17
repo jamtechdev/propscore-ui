@@ -203,12 +203,13 @@ export default function AccountSetting() {
                         <label className="form-label">Last Name</label>
                         <input
                           type="text"
-                          className="form-control"
+                          className="form-control form-control-invalid"
                           placeholder="Last Name"
                           name="last_name"
                           value={profile.last_name}
                           onChange={handleChange}
                         />
+                        <span className="error-text">You should enter your last name</span>
                       </div>
                     </div>
                     <div>

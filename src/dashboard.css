@@ -446,16 +446,37 @@
   font-weight: 500;
   line-height: 140%;
   margin: 0 0 10px !important;
+  width: 100%;
 }
 
-.dashboard-form label span{
-    color: #97999D;
-font-size: 14px;
-font-style: normal;
-font-weight: 500;
+.dashboard-form label a {
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 600;
+  text-decoration-line: underline;
+  text-decoration-style: solid;
+  text-decoration-skip-ink: auto;
+  text-decoration-thickness: auto;
+  text-underline-offset: auto;
+  text-underline-position: from-font;
+  background: var(
+    --cta,
+    linear-gradient(96deg, #008080 -6.46%, #a4c639 342.52%)
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
-.dashboard-form .form-control, .dashboard-form .form-select {
+.dashboard-form label span {
+  color: #97999d;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+}
+
+.dashboard-form .form-control,
+.dashboard-form .form-select {
   display: flex;
   padding: 16px 12px;
   border-radius: 12px;
@@ -465,27 +486,75 @@ font-weight: 500;
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
-height: 54px;
+  height: 54px;
 }
 
-.dashboard-form .icon-box{
-    position: relative;
+.dashboard-form .form-control-invalid{
+  border:1px solid  #F40A41;
 }
 
-.dashboard-form .icon-box svg{
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    margin: auto;
-    left: 12px;
+.dashboard-form .error-text {
+    color: #F40A41;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 100%;
 }
 
-.dashboard-form .icon-box .form-control{
-    padding-left: 32px;
+.dashboard-form .icon-box {
+  position: relative;
 }
 
-.dashboard-form .form-control:focus,  .dashboard-form .form-select:focus {
+.dashboard-form .icon-box svg {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  left: 12px;
+}
+
+.dashboard-form .icon-box .password-eye-icon {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  right: 12px;
+  cursor: pointer;
+}
+
+.dashboard-form .icon-box .form-control {
+  padding-left: 32px;
+}
+
+.dashboard-form .icon-box.password-box .form-control {
+  padding-left: 32px;
+  padding-right: 32px;
+}
+
+.dashboard-form .form-control:focus,
+.dashboard-form .form-select:focus {
   border: 1px solid #008080;
+}
+
+.status-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  padding-left: 0px;
+  gap: 10px;
+  margin-bottom: 0px;
+}
+
+.status-list li img {
+  width: 15px;
+  opacity: 20%;
+}
+
+.status-list li p {
+  margin-bottom: 0px;
+  color: var(--para);
+  font-family: "Manrope", sans-serif;
+  font-weight: 500;
+  font-size: 14px;
 }
 
 /* Dashboard-content-css-end */
